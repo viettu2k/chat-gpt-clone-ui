@@ -1,9 +1,7 @@
 import bot from './assets/bot.svg';
 import user from './assets/user.svg';
 
-require('dotenv').config();
-
-const API_URL = process.env.API_URL;
+const API_URL = 'https://chat-gpt-clone-api.onrender.com/';
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
