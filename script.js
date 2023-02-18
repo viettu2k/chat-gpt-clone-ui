@@ -4,6 +4,7 @@ import user from './assets/user.svg';
 const API_URL = 'https://chat-gpt-clone-api.onrender.com/';
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
+const promptStorage = [];
 
 let loadInterval;
 
@@ -55,7 +56,9 @@ function chatStripe(isAi, value, uniqueId) {
                       alt="${isAi ? 'bot' : 'user'}" 
                     />
                 </div>
-                <div class="message" id=${uniqueId}>${value}</div>
+                <div class="chat-box">
+                  <div class="message"  id=${uniqueId}>${value}</div>
+                </div>
             </div>
         </div>
     `;
@@ -85,13 +88,15 @@ const handleSubmit = async (e) => {
   // messageDiv.innerHTML = "..."
   loader(messageDiv);
 
+  promptStorage.push(data.get('prompt'));
+
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      prompt: data.get('prompt'),
+      prompt: promptStorage.join(' '),
     }),
   });
 
